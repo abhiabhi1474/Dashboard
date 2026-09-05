@@ -1,0 +1,196 @@
+<div class="kpi-grid">
+    
+  <div class="kpi-card card-glass" id="kpi-card-total-employees">
+    <div class="kpi-card-header">
+      <div class="kpi-icon-wrap icon-indigo">
+        <span class="material-symbols-outlined">group</span>
+      </div>
+      <span class="kpi-badge badge-primary">Workforce</span>
+    </div>
+    <div class="kpi-card-body">
+      <span class="kpi-label">Total Employee Count</span>
+      <div class="kpi-value-row">
+        <span class="kpi-value" id="kpi-total-employees-value">{{ kpis?.totalEmployeeCount || 0 }}</span>
+        <span class="kpi-sub-badge badge-success">
+          <span class="material-symbols-outlined" style="font-size: 13px;">check_circle</span>
+          {{ kpis?.activeEmployeeCount || 0 }} Active in Period
+        </span>
+      </div>
+      <div class="department-pills">
+        @for (dept of kpis?.departmentCounts; track dept.department) {
+          <span class="dept-pill">{{ dept.department }}: {{ dept.count }}</span>
+        }
+      </div>
+    </div>
+    <div class="kpi-card-footer">
+      <span class="material-symbols-outlined footer-icon">domain</span>
+      <span>Enterprise Operations Personnel</span>
+    </div>
+  </div>
+
+
+  <div class="kpi-card card-glass highlight-best" id="kpi-card-best-performer">
+    <div class="kpi-card-header">
+      <div class="kpi-icon-wrap icon-amber">
+        <span class="material-symbols-outlined">workspace_premium</span>
+      </div>
+      <span class="kpi-badge badge-warning">Top Performer</span>
+    </div>
+    <div class="kpi-card-body">
+      <span class="kpi-label">Best Performing Employee</span>
+      @if (kpis?.bestPerformer; as best) {
+        <div class="performer-profile">
+          <img [src]="best.employee.avatar" [alt]="best.employee.name" class="performer-avatar" />
+          <div class="performer-details">
+            <strong class="performer-name" id="best-performer-name">{{ best.employee.name }}</strong>
+            <span class="performer-role">{{ best.employee.role }}</span>
+            <span class="performer-dept">{{ best.employee.department }}</span>
+          </div>
+        </div>
+        <div class="performer-stats-row">
+          <div class="stat-item">
+            <span class="stat-num text-success" id="best-performer-rate">{{ best.resolutionRate }}%</span>
+            <span class="stat-name">Resolution Rate</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">{{ best.resolvedCount }} / {{ best.totalHandled }}</span>
+            <span class="stat-name">Tickets Resolved</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num text-info">{{ best.slaAdherenceRate }}%</span>
+            <span class="stat-name">SLA Compliance</span>
+          </div>
+        </div>
+      } @else {
+        <div class="empty-placeholder">No activity recorded for this period</div>
+      }
+    </div>
+    <div class="kpi-card-footer footer-best">
+      <span class="material-symbols-outlined footer-icon">bolt</span>
+      <span>Calculated for {{ activeRangeLabel }}</span>
+    </div>
+  </div>
+
+
+  <div class="kpi-card card-glass highlight-least" id="kpi-card-least-performer">
+    <div class="kpi-card-header">
+      <div class="kpi-icon-wrap icon-rose">
+        <span class="material-symbols-outlined">support_agent</span>
+      </div>
+      <span class="kpi-badge badge-danger">Needs Coaching</span>
+    </div>
+    <div class="kpi-card-body">
+      <span class="kpi-label">Least Performing Employee</span>
+      @if (kpis?.leastPerformer; as least) {
+        <div class="performer-profile">
+          <img [src]="least.employee.avatar" [alt]="least.employee.name" class="performer-avatar" />
+          <div class="performer-details">
+            <strong class="performer-name" id="least-performer-name">{{ least.employee.name }}</strong>
+            <span class="performer-role">{{ least.employee.role }}</span>
+            <span class="performer-dept">{{ least.employee.department }}</span>
+          </div>
+        </div>
+        <div class="performer-stats-row">
+          <div class="stat-item">
+            <span class="stat-num text-danger" id="least-performer-rate">{{ least.resolutionRate }}%</span>
+            <span class="stat-name">Resolution Rate</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num text-warning">{{ least.openCount }} Open</span>
+            <span class="stat-name">Backlog Count</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">{{ least.totalHandled }}</span>
+            <span class="stat-name">Total Assigned</span>
+          </div>
+        </div>
+      } @else {
+        <div class="empty-placeholder">No backlog data recorded</div>
+      }
+    </div>
+    <div class="kpi-card-footer footer-least">
+      <span class="material-symbols-outlined footer-icon">flag</span>
+      <span>Flagged for peer assistance & training</span>
+    </div>
+  </div>
+
+ 
+  <div class="kpi-card card-glass" id="kpi-card-ticket-volume">
+    <div class="kpi-card-header">
+      <div class="kpi-icon-wrap icon-cyan">
+        <span class="material-symbols-outlined">confirmation_number</span>
+      </div>
+      <span class="kpi-badge badge-info">Workload</span>
+    </div>
+    <div class="kpi-card-body">
+      <span class="kpi-label">Employee & Total Ticket Count</span>
+      <div class="kpi-value-row">
+        <span class="kpi-value" id="kpi-total-tickets-value">{{ kpis?.totalTicketsHandled || 0 }}</span>
+        <span class="kpi-rate-badge badge-success">
+          <span class="material-symbols-outlined" style="font-size: 13px;">task_alt</span>
+          {{ kpis?.overallResolutionRate || 0 }}% Resolved
+        </span>
+      </div>
+      <div class="workload-breakdown">
+        <div class="workload-col">
+          <span class="workload-val">{{ kpis?.avgTicketsPerEmployee || 0 }}</span>
+          <span class="workload-lbl">Avg / Employee</span>
+        </div>
+        <div class="workload-col">
+          <span class="workload-val">{{ kpis?.slaAdherenceAverage || 0 }}%</span>
+          <span class="workload-lbl">Avg SLA Adherence</span>
+        </div>
+        <div class="workload-col">
+          <span class="workload-val">{{ kpis?.totalHoursSpentHandling || 0 }} hrs</span>
+          <span class="workload-lbl">Handling Time</span>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-card-footer">
+      <span class="material-symbols-outlined footer-icon">speed</span>
+      <span>Aggregate workload across all personnel</span>
+    </div>
+  </div>
+
+  
+  <div class="kpi-card card-glass" id="kpi-card-date-duration">
+    <div class="kpi-card-header">
+      <div class="kpi-icon-wrap icon-emerald">
+        <span class="material-symbols-outlined">query_builder</span>
+      </div>
+      <span class="kpi-badge badge-success">Temporal KPIs</span>
+    </div>
+    <div class="kpi-card-body">
+      <span class="kpi-label">Tickets Handled by Date & Time</span>
+      <div class="temporal-counts-grid">
+        <div class="temporal-box" id="temporal-today-box">
+          <span class="temp-title">Today</span>
+          <span class="temp-count" id="tickets-today-count">{{ kpis?.ticketsCountToday || 0 }}</span>
+        </div>
+        <div class="temporal-box" id="temporal-week-box">
+          <span class="temp-title">This Week</span>
+          <span class="temp-count" id="tickets-week-count">{{ kpis?.ticketsCountThisWeek || 0 }}</span>
+        </div>
+        <div class="temporal-box" id="temporal-month-box">
+          <span class="temp-title">This Month</span>
+          <span class="temp-count" id="tickets-month-count">{{ kpis?.ticketsCountThisMonth || 0 }}</span>
+        </div>
+      </div>
+      <div class="duration-distribution">
+        <div class="duration-header">
+          <span class="dist-title">Handling Duration:</span>
+        </div>
+        <div class="duration-pills-row">
+          <span class="dur-pill" title="Under 1 hour">&lt;1h: <strong>{{ kpis?.timeDistribution?.under1Hour || 0 }}</strong></span>
+          <span class="dur-pill" title="1 to 4 hours">1-4h: <strong>{{ kpis?.timeDistribution?.between1And4Hours || 0 }}</strong></span>
+          <span class="dur-pill" title="4 to 8 hours">4-8h: <strong>{{ kpis?.timeDistribution?.between4And8Hours || 0 }}</strong></span>
+          <span class="dur-pill" title="Over 8 hours">&gt;8h: <strong>{{ kpis?.timeDistribution?.over8Hours || 0 }}</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-card-footer">
+      <span class="material-symbols-outlined footer-icon">schedule</span>
+      <span>Breakdown by elapsed duration</span>
+    </div>
+  </div>
+</div>

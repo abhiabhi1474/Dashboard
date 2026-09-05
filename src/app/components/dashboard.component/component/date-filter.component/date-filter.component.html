@@ -1,0 +1,131 @@
+<div class="filter-wrapper card-glass">
+  <div class="filter-main-row">
+    <div class="preset-group" role="group" aria-label="Date Period Selector">
+      <button
+        type="button"
+        class="preset-btn"
+        [class.active]="selectedType === 'today'"
+        (click)="selectPeriod('today')"
+        id="filter-today-btn"
+      >
+        <span class="material-symbols-outlined icon">today</span>
+        <span>Today</span>
+        @if (selectedType === 'today') {
+          <span class="active-dot"></span>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="preset-btn"
+        [class.active]="selectedType === 'this_week'"
+        (click)="selectPeriod('this_week')"
+        id="filter-week-btn"
+      >
+        <span class="material-symbols-outlined icon">date_range</span>
+        <span>This Week</span>
+        @if (selectedType === 'this_week') {
+          <span class="active-dot"></span>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="preset-btn"
+        [class.active]="selectedType === 'this_month'"
+        (click)="selectPeriod('this_month')"
+        id="filter-month-btn"
+      >
+        <span class="material-symbols-outlined icon">calendar_month</span>
+        <span>This Month</span>
+        @if (selectedType === 'this_month') {
+          <span class="active-dot"></span>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="preset-btn custom-toggle"
+        [class.active]="selectedType === 'custom' || showCustomInputs"
+        (click)="toggleCustom()"
+        id="filter-custom-btn"
+      >
+        <span class="material-symbols-outlined icon">tune</span>
+        <span>Custom Range</span>
+        <span class="material-symbols-outlined chevron">
+          {{ showCustomInputs ? 'expand_less' : 'expand_more' }}
+        </span>
+        @if (selectedType === 'custom' && !showCustomInputs) {
+          <span class="active-dot"></span>
+        }
+      </button>
+    </div>
+
+
+    <div class="active-window-indicator">
+      <span class="material-symbols-outlined indicator-icon">event_available</span>
+      <div class="window-info">
+        <span class="window-label">Active Period Window:</span>
+        <span class="window-dates">{{ activeRangeLabel }}</span>
+      </div>
+      <span class="badge badge-primary ticket-count-pill" id="filter-ticket-count-badge">
+        {{ dataService.dashboardKPIs()?.ticketsCountSelectedPeriod || 0 }} Tickets
+      </span>
+    </div>
+  </div>
+
+
+  @if (showCustomInputs) {
+    <div class="custom-inputs-drawer animate-fade-in" id="custom-range-drawer">
+      <div class="custom-inputs-grid">
+        <div class="date-input-field">
+          <label class="date-label" for="custom-start-date">
+            <span class="material-symbols-outlined field-icon">calendar_today</span>
+            <span>Start Date</span>
+          </label>
+          <input
+            id="custom-start-date"
+            type="date"
+            class="form-input date-picker"
+            [(ngModel)]="customStart"
+            (change)="validationError = ''"
+          />
+        </div>
+
+        <div class="date-input-field">
+          <label class="date-label" for="custom-end-date">
+            <span class="material-symbols-outlined field-icon">event</span>
+            <span>End Date</span>
+          </label>
+          <input
+            id="custom-end-date"
+            type="date"
+            class="form-input date-picker"
+            [(ngModel)]="customEnd"
+            (change)="validationError = ''"
+          />
+        </div>
+
+        <div class="custom-actions">
+          <button
+            type="button"
+            class="btn btn-primary apply-range-btn"
+            (click)="applyCustom()"
+            id="apply-custom-range-btn"
+          >
+            <span class="material-symbols-outlined">filter_alt</span>
+            <span>Apply Custom Filter</span>
+          </button>
+        </div>
+      </div>
+
+
+      @if (validationError) {
+        <div class="range-error-alert animate-shake" id="range-validation-error">
+          <span class="material-symbols-outlined">warning</span>
+          <span>{{ validationError }}</span>
+        </div>
+      }
+    </div>
+  }
+</div>

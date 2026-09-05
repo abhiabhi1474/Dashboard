@@ -1,0 +1,134 @@
+[
+  {
+    "id": "emp-001",
+    "name": "Karthik Kumar",
+    "email": "m.sterling@company.com",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    "role": "Sr. Support Engineer",
+    "department": "Customer Support",
+    "location": "New York",
+    "joinDate": "2023-03-15",
+    "targetSlaHours": 4
+  },
+  {
+    "id": "emp-002",
+    "name": "Arun Vargheese",
+    "email": "e.rostova@company.com",
+    "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+    "role": "Tier 3 Support Lead",
+    "department": "Customer Support",
+    "location": "London",
+    "joinDate": "2022-08-10",
+    "targetSlaHours": 4
+  },
+  {
+    "id": "emp-003",
+    "name": "Devon Convey",
+    "email": "d.bradley@company.com",
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+    "role": "DevOps Incident Specialist",
+    "department": "Technical Ops",
+    "location": "San Francisco",
+    "joinDate": "2023-11-01",
+    "targetSlaHours": 2
+  },
+  {
+    "id": "emp-004",
+    "name": "Amina Noora",
+    "email": "a.mansoor@company.com",
+    "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80",
+    "role": "Client Success Manager",
+    "department": "Customer Success",
+    "location": "Dubai",
+    "joinDate": "2023-01-20",
+    "targetSlaHours": 6
+  },
+  {
+    "id": "emp-005",
+    "name": "Ali Hussain",
+    "email": "l.ferreira@company.com",
+    "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
+    "role": "QA Performance Tester",
+    "department": "Quality Assurance",
+    "location": "Kerala",
+    "joinDate": "2024-02-14",
+    "targetSlaHours": 4
+  },
+  {
+    "id": "emp-006",
+    "name": "Revathi Arun",
+    "email": "c.zhao@company.com",
+    "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",
+    "role": "Infrastructure Analyst",
+    "department": "Technical Ops",
+    "location": "Singapore",
+    "joinDate": "2022-05-18",
+    "targetSlaHours": 2
+  },
+  {
+    "id": "emp-007",
+    "name": "Babu Antony",
+    "email": "k.mensah@company.com",
+    "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80",
+    "role": "Resolution Specialist",
+    "department": "Customer Support",
+    "location": "Karnataka",
+    "joinDate": "2024-04-01",
+    "targetSlaHours": 4
+  },
+  {
+    "id": "emp-008",
+    "name": "Sophia Paul",
+    "email": "s.lindqvist@company.com",
+    "avatar": "https://images.unsplash.com/photo-1534751516642-a171edd26cb0?w=150&auto=format&fit=crop&q=80",
+    "role": "Backend Reliability Eng",
+    "department": "Engineering",
+    "location": "Mumbai",
+    "joinDate": "2021-09-12",
+    "targetSlaHours": 3
+  },
+  {
+    "id": "emp-009",
+    "name": "Kamal Hassan",
+    "email": "t.hassan@company.com",
+    "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80",
+    "role": "QA Automation Engineer",
+    "department": "Quality Assurance",
+    "location": "Toronto",
+    "joinDate": "2023-07-04",
+    "targetSlaHours": 5
+  },
+  {
+    "id": "emp-010",
+    "name": "Anushka K",
+    "email": "r.gallagher@company.com",
+    "avatar": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop&q=80",
+    "role": "Escalation Manager",
+    "department": "Customer Support",
+    "location": "Dubai",
+    "joinDate": "2022-11-28",
+    "targetSlaHours": 3
+  },
+  {
+    "id": "emp-011",
+    "name": "Raghu Ram",
+    "email": "k.takahashi@company.com",
+    "avatar": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&auto=format&fit=crop&q=80",
+    "role": "Support Specialist",
+    "department": "Customer Support",
+    "location": "Tokyo",
+    "joinDate": "2024-06-10",
+    "targetSlaHours": 4
+  },
+  {
+    "id": "emp-012",
+    "name": "Aliya Fatima",
+    "email": "h.weber@company.com",
+    "avatar": "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=150&auto=format&fit=crop&q=80",
+    "role": "CS Ops Associate",
+    "department": "Customer Success",
+    "location": "Berlin",
+    "joinDate": "2024-01-15",
+    "targetSlaHours": 5
+  }
+]

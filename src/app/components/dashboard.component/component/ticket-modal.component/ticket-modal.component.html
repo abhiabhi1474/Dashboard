@@ -1,0 +1,88 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-dialog card-glass" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="header-info">
+        <div class="modal-title-row">
+          <span class="material-symbols-outlined modal-icon">receipt_long</span>
+          <h3>Employee Ticket Ledger</h3>
+        </div>
+        @if (employee) {
+        <div class="modal-employee-sub">
+          <img [src]="employee.avatar" [alt]="employee.name" class="modal-avatar" />
+          <span class="modal-emp-name">{{ employee.name }}</span>
+          <span class="modal-emp-dept">({{ employee.department }})</span>
+          <span class="badge badge-primary">{{ activeRangeLabel }}</span>
+        </div>
+        }
+      </div>
+      <button type="button" class="btn-close" (click)="onClose()" aria-label="Close modal">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+      @if (employeeTickets.length > 0) {
+      <div class="tickets-list">
+        @for (t of employeeTickets; track t.id) {
+        <div class="ticket-item card-glass">
+          <div class="ticket-item-top">
+            <span class="ticket-code">{{ t.ticketCode }}</span>
+            <div class="ticket-pills">
+              <!-- Priority Badge -->
+              <span class="badge" [class.badge-danger]="t.priority === 'CRITICAL'"
+                [class.badge-warning]="t.priority === 'HIGH'" [class.badge-info]="t.priority === 'MEDIUM'"
+                [class.badge-primary]="t.priority === 'LOW'">
+                {{ t.priority }}
+              </span>
+
+              <!-- Status Badge -->
+              <span class="badge" [class.badge-success]="t.status === 'RESOLVED'"
+                [class.badge-info]="t.status === 'IN_PROGRESS'" [class.badge-danger]="t.status === 'OPEN'">
+                {{ t.status }}
+              </span>
+            </div>
+          </div>
+
+          <h4 class="ticket-title">{{ t.title }}</h4>
+
+          <div class="ticket-meta-row">
+            <span class="meta-item">
+              <span class="material-symbols-outlined meta-icon">category</span>
+              {{ t.category }}
+            </span>
+            <span class="meta-item">
+              <span class="material-symbols-outlined meta-icon">schedule</span>
+              {{ t.durationMinutes }} mins handling
+            </span>
+            @if (t.resolutionTimeHours) {
+            <span class="meta-item text-success">
+              <span class="material-symbols-outlined meta-icon">check_circle</span>
+              Resolved in {{ t.resolutionTimeHours }}h
+            </span>
+            }
+          </div>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="modal-empty-state">
+        <span class="material-symbols-outlined empty-icon">assignment_turned_in</span>
+        <h4>No Tickets Handled in this Window</h4>
+        <p>This employee did not handle any assigned tickets within {{ activeRangeLabel }}.</p>
+      </div>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <span class="tickets-summary-text">
+        Showing <strong>{{ employeeTickets.length }}</strong> tickets in current date filter
+      </span>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="onClose()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

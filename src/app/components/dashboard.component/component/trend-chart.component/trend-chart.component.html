@@ -1,0 +1,59 @@
+<div class="charts-section-grid">
+  <!-- Chart 1: Date-Based Ticket Trend -->
+  <div class="chart-card card-glass" id="trend-line-chart-card">
+    <div class="chart-card-header">
+      <div class="header-left">
+        <div class="chart-title-wrap">
+          <span class="material-symbols-outlined chart-icon">show_chart</span>
+          <h3>Ticket Handling & Resolution Trends</h3>
+        </div>
+        <p class="chart-subtitle">Date-based ticket progression across the selected period</p>
+      </div>
+      <div class="chart-controls">
+        <div class="type-toggle" role="group" aria-label="Chart Type">
+          <button
+            type="button"
+            class="toggle-btn"
+            [class.active]="chartType === 'line'"
+            (click)="setChartType('line')"
+            title="Line Area Chart"
+          >
+            <span class="material-symbols-outlined">stacked_line_chart</span>
+          </button>
+          <button
+            type="button"
+            class="toggle-btn"
+            [class.active]="chartType === 'bar'"
+            (click)="setChartType('bar')"
+            title="Bar Chart"
+          >
+            <span class="material-symbols-outlined">bar_chart</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="canvas-container">
+      <canvas #trendCanvas id="trend-chart-canvas"></canvas>
+    </div>
+  </div>
+
+  <!-- Chart 2: Status & Resolution Donut -->
+  <div class="chart-card card-glass donut-card" id="status-donut-chart-card">
+    <div class="chart-card-header">
+      <div class="header-left">
+        <div class="chart-title-wrap">
+          <span class="material-symbols-outlined chart-icon">pie_chart</span>
+          <h3>Ticket Resolution Ratio</h3>
+        </div>
+        <p class="chart-subtitle">Completion & backlog distribution</p>
+      </div>
+    </div>
+    <div class="donut-canvas-container">
+      <canvas #donutCanvas id="donut-chart-canvas"></canvas>
+      <div class="donut-center-metric">
+        <span class="donut-center-rate">{{ dataService.dashboardKPIs()?.overallResolutionRate || 0 }}%</span>
+        <span class="donut-center-label">Resolved</span>
+      </div>
+    </div>
+  </div>
+</div>

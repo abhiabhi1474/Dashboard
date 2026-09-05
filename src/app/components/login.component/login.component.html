@@ -1,0 +1,158 @@
+<div class="login-wrapper">
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="login-container">
+    <div class="brand-section">
+      <div class="brand-logo-icon">
+        <span class="material-symbols-outlined">monitoring</span>
+      </div>
+      <h1 class="brand-title">Perform<span>Pulse</span></h1>
+      <p class="brand-subtitle">Enterprise Performance Evaluation & Operations Management</p>
+    </div>
+
+
+    <div class="login-card card-glass">
+      <div class="card-header">
+        <div class="security-badge">
+          <span class="material-symbols-outlined">lock</span>
+          <span>Single Sign-On & Internal Auth</span>
+        </div>
+        <h2>Sign In to Workspace</h2>
+        <p>Enter your corporate credentials to access evaluation KPIs and analytics.</p>
+      </div>
+
+
+      @if (errorMessage) {
+        <div class="alert-banner animate-shake" role="alert" id="login-error-alert">
+          <span class="material-symbols-outlined alert-icon">error</span>
+          <div class="alert-content">
+            <strong>Authentication Failed</strong>
+            <span>{{ errorMessage }}</span>
+          </div>
+          <button type="button" class="alert-close" (click)="errorMessage = ''" aria-label="Dismiss error">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      }
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="identifier-input">Corporate Email or Username</label>
+          <div class="input-with-icon">
+            <span class="material-symbols-outlined input-icon">badge</span>
+            <input
+              id="identifier-input"
+              type="text"
+              class="form-input"
+              [class.is-invalid]="loginForm.get('identifier')?.touched && loginForm.get('identifier')?.invalid"
+              formControlName="identifier"
+              placeholder="e.g. admin@company.com"
+              (input)="onInputChange()"
+              autocomplete="username"
+            />
+          </div>
+          @if (loginForm.get('identifier')?.touched && loginForm.get('identifier')?.hasError('required')) {
+            <span class="form-error-text">
+              <span class="material-symbols-outlined" style="font-size: 14px;">info</span>
+              Username or corporate email is required
+            </span>
+          }
+        </div>
+
+
+        <div class="form-group">
+          <div class="label-row">
+            <label class="form-label" for="password-input">Password</label>
+            <span class="secure-tag">256-bit Encrypted</span>
+          </div>
+          <div class="input-with-icon">
+            <span class="material-symbols-outlined input-icon">vpn_key</span>
+            <input
+              id="password-input"
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-input password-input"
+              [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+              formControlName="password"
+              placeholder="Enter your password"
+              (input)="onInputChange()"
+              autocomplete="current-password"
+            />
+            <button
+              type="button"
+              class="toggle-password-btn"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+              id="toggle-password-button"
+            >
+              <span class="material-symbols-outlined">
+                {{ showPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
+            <span class="form-error-text">
+              <span class="material-symbols-outlined" style="font-size: 14px;">info</span>
+              Password is required
+            </span>
+          }
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('minlength')) {
+            <span class="form-error-text">
+              <span class="material-symbols-outlined" style="font-size: 14px;">info</span>
+              Password must be at least 4 characters
+            </span>
+          }
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary submit-btn"
+          [disabled]="isLoading"
+          id="login-submit-button"
+        >
+          @if (isLoading) {
+            <span class="loading-spinner"></span>
+            <span>Verifying Credentials...</span>
+          } @else {
+            <span>Authenticate & Access Dashboard</span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          }
+        </button>
+      </form>
+
+    
+      <div class="demo-credentials-box">
+        <div class="demo-header">
+          <span class="material-symbols-outlined" style="font-size: 16px; color: var(--accent-cyan);">info</span>
+          <span>Demo Credentials (One-Click Auto Fill)</span>
+        </div>
+        <div class="demo-buttons-grid">
+          <button type="button" class="demo-pill-btn" (click)="quickFill('admin')" id="demo-admin-button">
+            <span class="demo-role-badge badge-primary">Admin</span>
+            <div class="demo-text">
+              <span class="demo-email">admin&#64;company.com</span>
+              <span class="demo-hint">pass: admin123</span>
+            </div>
+          </button>
+
+          <button type="button" class="demo-pill-btn" (click)="quickFill('lead')" id="demo-lead-button">
+            <span class="demo-role-badge badge-info">Lead</span>
+            <div class="demo-text">
+              <span class="demo-email">sarah.j&#64;company.com</span>
+              <span class="demo-hint">pass: user123</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="login-footer">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span>PerformPulse v3.2 Core Service — Operational</span>
+      </div>
+      <p class="copyright">Confidential Internal Portal &copy; 2026 Enterprise Operations Inc.</p>
+    </div>
+  </div>
+</div>

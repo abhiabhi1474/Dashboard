@@ -1,0 +1,191 @@
+<div class="table-container card-glass">
+  <div class="table-header-toolbar">
+    <div class="header-title-col">
+      <div class="title-with-icon">
+        <span class="material-symbols-outlined toolbar-icon">leaderboard</span>
+        <h3>Employee Performance Leaderboard</h3>
+      </div>
+      <p class="subtitle">Ranked operational performance based on tickets handled, SLA & resolution rates</p>
+    </div>
+
+    <div class="toolbar-controls">
+   
+      <div class="search-input-wrap">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input
+          type="text"
+          class="form-input table-search"
+          placeholder="Search by name, email, department..."
+          [(ngModel)]="searchQuery"
+          id="employee-search-input"
+        />
+        @if (searchQuery) {
+          <button type="button" class="clear-search-btn" (click)="searchQuery = ''">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        }
+      </div>
+
+     
+      <div class="dept-select-wrap">
+        <select class="form-input dept-select" [(ngModel)]="selectedDepartment" id="dept-filter-select">
+          @for (dept of departments; track dept) {
+            <option [value]="dept">{{ dept === 'ALL' ? 'All Departments' : dept }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="table-responsive">
+    <table class="leaderboard-table" id="performance-leaderboard-table">
+      <thead>
+        <tr>
+          <th class="th-rank" (click)="toggleSort('rank')">
+            <div class="th-content">
+              <span>Rank</span>
+              @if (sortColumn === 'rank') {
+                <span class="material-symbols-outlined sort-icon">{{ sortAsc ? 'arrow_upward' : 'arrow_downward' }}</span>
+              }
+            </div>
+          </th>
+          <th class="th-employee">Employee Personnel</th>
+          <th class="th-dept">Department</th>
+          <th class="th-handled" (click)="toggleSort('handled')">
+            <div class="th-content">
+              <span>Handled</span>
+              @if (sortColumn === 'handled') {
+                <span class="material-symbols-outlined sort-icon">{{ sortAsc ? 'arrow_upward' : 'arrow_downward' }}</span>
+              }
+            </div>
+          </th>
+          <th class="th-resolved">Resolved</th>
+          <th class="th-progress">In Progress / Open</th>
+          <th class="th-rate" (click)="toggleSort('rate')">
+            <div class="th-content">
+              <span>Resolution Rate</span>
+              @if (sortColumn === 'rate') {
+                <span class="material-symbols-outlined sort-icon">{{ sortAsc ? 'arrow_upward' : 'arrow_downward' }}</span>
+              }
+            </div>
+          </th>
+          <th class="th-sla">SLA %</th>
+          <th class="th-tier">Evaluation Status</th>
+          <th class="th-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of filteredEmployees; track item.employee.id) {
+          <tr class="table-row" [class.highlight-row]="item.rank === 1">
+       
+            <td class="td-rank">
+              <span class="rank-badge" [class.rank-gold]="item.rank === 1" [class.rank-silver]="item.rank === 2" [class.rank-bronze]="item.rank === 3">
+                @if (item.rank === 1) { 🏆 }
+                @else if (item.rank === 2) { 🥈 }
+                @else if (item.rank === 3) { 🥉 }
+                #{{ item.rank }}
+              </span>
+            </td>
+
+
+            <td class="td-employee">
+              <div class="emp-profile-cell">
+                <img [src]="item.employee.avatar" [alt]="item.employee.name" class="emp-avatar-img" />
+                <div class="emp-text-details">
+                  <strong class="emp-name">{{ item.employee.name }}</strong>
+                  <span class="emp-email">{{ item.employee.email }}</span>
+                </div>
+              </div>
+            </td>
+
+    
+            <td class="td-dept">
+              <span class="dept-tag">{{ item.employee.department }}</span>
+            </td>
+
+      
+            <td class="td-handled">
+              <span class="handled-number">{{ item.totalHandled }}</span>
+            </td>
+
+          
+            <td class="td-resolved">
+              <span class="resolved-number text-success">{{ item.resolvedCount }}</span>
+            </td>
+
+      
+            <td class="td-progress">
+              <span class="status-summary">
+                <span class="text-info">{{ item.inProgressCount }} In Prog</span>
+                <span class="separator">/</span>
+                <span [class.text-danger]="item.openCount > 0">{{ item.openCount }} Open</span>
+              </span>
+            </td>
+
+          
+            <td class="td-rate">
+              <div class="rate-progress-wrapper">
+                <div class="rate-label-row">
+                  <span class="rate-pct" [class.text-success]="item.resolutionRate >= 80" [class.text-warning]="item.resolutionRate >= 60 && item.resolutionRate < 80" [class.text-danger]="item.resolutionRate < 60">
+                    {{ item.resolutionRate }}%
+                  </span>
+                </div>
+                <div class="progress-track">
+                  <div
+                    class="progress-fill"
+                    [class.fill-success]="item.resolutionRate >= 80"
+                    [class.fill-warning]="item.resolutionRate >= 60 && item.resolutionRate < 80"
+                    [class.fill-danger]="item.resolutionRate < 60"
+                    [style.width.%]="item.resolutionRate"
+                  ></div>
+                </div>
+              </div>
+            </td>
+
+        
+            <td class="td-sla">
+              <span class="sla-text">{{ item.slaAdherenceRate }}%</span>
+            </td>
+
+           
+            <td class="td-tier">
+              @if (item.tier === 'Elite') {
+                <span class="badge badge-success">⭐ Elite</span>
+              } @else if (item.tier === 'Good') {
+                <span class="badge badge-info">✓ On Track</span>
+              } @else {
+                <span class="badge badge-danger">⚠️ Coaching</span>
+              }
+            </td>
+
+         
+            <td class="td-actions">
+              <button
+                type="button"
+                class="btn btn-outline btn-sm action-btn"
+                (click)="inspectTickets(item.employee.id)"
+                title="View assigned tickets in this period"
+              >
+                <span class="material-symbols-outlined" style="font-size: 15px;">receipt_long</span>
+                <span>Tickets</span>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="10" class="no-data-cell">
+              <div class="empty-state">
+                <span class="material-symbols-outlined empty-icon">person_search</span>
+                <p>No employee records matched your filter criteria.</p>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="searchQuery = ''; selectedDepartment = 'ALL'">
+                  Reset Filters
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
