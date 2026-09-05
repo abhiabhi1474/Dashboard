@@ -11,6 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:ticket": "node dist/ticket/server/server.mjs"
+    "serve:ssr": "node dist/ticket/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@11.17.0",
